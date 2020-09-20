@@ -16,7 +16,7 @@ pipeline {
             steps {
                 echo " ============== start building image =================="
                 dir ('/var/lib/jenkins/workspace/docker_build/dkr') {
-                	sh 'docker build . '
+                	sh 'docker build -t toolbox:latest . '
                 }
             }
         }
