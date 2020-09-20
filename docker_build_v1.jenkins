@@ -12,12 +12,29 @@ pipeline {
         timestamps()
     }
     stages {
+            stage("docker login") {
+            steps {
+                echo " ============== docker login =================="
+                withCredentials([usernamePassword(credentialsId: 'dockerhub_gmartynov', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                    sh """
+                    docker login -u $USERNAME -p $PASSWORD
+                    """
+                }
+            }
+        }
         stage("create docker image") {
             steps {
                 echo " ============== start building image =================="
                 dir ('/var/lib/jenkins/workspace/docker_build/dkr') {
                 	sh 'docker build -t gmartynov/testdocker:latest . '
                 }
+            }
+        }
+        stage("docker push" {
+            steps {
+                echo "====== start pushing image ======"
+                sh '''
+                docker push semaev/toolbox:latest
             }
         }
     }
