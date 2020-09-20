@@ -15,7 +15,7 @@ pipeline {
         stage("create docker image") {
             steps {
                 echo " ============== start building image =================="
-                dir ('/dkr') {
+                dir ('/var/lib/jenkins/workspace/docker_build/dkr') {
                 	sh 'docker build . '
                 }
             }
